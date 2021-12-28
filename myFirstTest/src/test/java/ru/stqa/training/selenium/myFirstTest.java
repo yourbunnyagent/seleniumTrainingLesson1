@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriver;  // этот импорт не проходит. Вся строка серая, "chrome" подсвечивается красным. Усердный поиск решения не привёл к результату(
 
 
 public class myFirstTest {
