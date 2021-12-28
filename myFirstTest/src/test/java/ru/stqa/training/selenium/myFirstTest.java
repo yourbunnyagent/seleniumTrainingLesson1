@@ -1,11 +1,14 @@
 package ru.stqa.training.selenium;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;  // этот импорт не проходит. Вся строка серая, "chrome" подсвечивается красным. Усердный поиск решения не привёл к результату(
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 
 
 public class myFirstTest {
@@ -16,7 +19,7 @@ public class myFirstTest {
     @Before
     public void start(){
         System.setProperty("webdriver.chrome.driver", "C://otherProgi//chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
+        driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 10);
 
     }
@@ -25,8 +28,8 @@ public class myFirstTest {
     public void myFirstTest() {
         driver.get("http://www.google.com");
         driver.findElement(By.name("q")).sendKeys("webdriver");
-        driver.findElement(By.name("btnG")).click();
-        wait.until(titleIs("webdriver - поиск в Google"));
+        driver.findElement(By.name("btnK")).click();
+        wait.until(titleIs("webdriver - Поиск в Google"));
     }
 
     @After
