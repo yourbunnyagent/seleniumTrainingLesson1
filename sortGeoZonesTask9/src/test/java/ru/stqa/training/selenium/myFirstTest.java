@@ -43,25 +43,30 @@ public class myFirstTest {
         var n = driver.findElements(By.cssSelector(".row")).size();
 
 
-        for (int i = 0; i <= n - 1; i++) {//нет, ошибок нет. При выборе дочерних элементов в следующем цикле (:nth-child())
+        for (int i = 0; i <= n-1; i++) {//нет, ошибок нет. При выборе дочерних элементов в следующем цикле (:nth-child())
+                                          //получается нормально сформировать массив только с такими индексами.
+            driver.findElement(By.cssSelector(".row:nth-child(" + (i + 2) + ") td:nth-child(3) a")).click();
 
-            driver.findElement(By.cssSelector(".row:nth-child(" + (i + 2) + ") td:nth-child(3)")).click();                            //получается нормально сформировать массив только с такими индексами.
+            wait.until(titleIs("Edit Geo Zone | My Store"));
 
-            var p = driver.findElements(By.cssSelector("#table-zones tbody tr")).size();
+            var p = driver.findElements(By.cssSelector("#table-zones tbody tr")).size() - 3;
 
-            String[] countries = new String[n];
+            List<String> countries = new ArrayList<>();
+            List<String> countriesReal = new ArrayList<>();
 
-            for (int j = 0; j <= p - 1; j++) {
+            for (int j = 0; j <= p; j++) {
                 var country = driver
                         .findElement(By.cssSelector("#table-zones tbody tr:nth-child(" + (j + 2) + ") td:nth-child(3) [selected=selected]"));
-                countries[i] = country.getAttribute("textContent");
+                countries.add(country.getAttribute("textContent"));
+                countriesReal.add(country.getAttribute("textContent"));
+                System.out.println(country.getAttribute("textContent"));
             }
 
-            String[] sortCountries = countries;
-            Arrays.sort(sortCountries);
-            if (countries != sortCountries) {
+            if (!countries.stream().sorted().toList().equals(countriesReal)){
                 throw new NoSuchElementException("Rows aren't sorted!");
             }
+
+            driver.navigate().back();
         }
     }
 

@@ -12,7 +12,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 
@@ -41,7 +43,8 @@ public class myFirstTest {
 
 
         var n = driver.findElements(By.cssSelector(".row")).size();
-        String[] countries = new String[n];
+        List<String> countries = new ArrayList<>();
+        List<String> countriesReal = new ArrayList<>();
 
 
 
@@ -50,14 +53,13 @@ public class myFirstTest {
                                         //получается нормально сформировать массив только с такими индексами.
             var country = driver
                     .findElement(By.cssSelector(".row:nth-child(" +(i+2)+ ") td:nth-child(5)"));
-            countries[i] = country.getAttribute("textContent");
+            countries.add(country.getAttribute("textContent"));
+            countriesReal.add(country.getAttribute("textContent"));
             //System.out.println(country.getAttribute("textContent"));
         }
-        String[] sortCountries = countries;
-        Arrays.sort(sortCountries);
-        if (countries!=sortCountries){
-            throw new NoSuchElementException("Rows aren't sorted!");
-        }
+            if (!countries.stream().sorted().toList().equals(countriesReal)){
+                throw new NoSuchElementException("Rows aren't sorted!");
+            }
 
         int num1 = 0;
 
@@ -77,16 +79,17 @@ public class myFirstTest {
                 driver.findElement(By.cssSelector(".row:nth-child(" +(i+2)+ ") td:nth-child(5) a")).click();
                 var sCCount = driver
                         .findElements(By.cssSelector("#table-zones tbody tr")).size() - 2;
-                String[] subCountries = new String[n];
+                List<String> subCountries = new ArrayList<>();
+                List<String> subCountriesReal = new ArrayList<>();
                 for (int k = 0; k <= sCCount-1; k++) { //нет, ошибок нет. При выборе дочерних элементов в следующем цикле (:nth-child())
                     //получается нормально сформировать массив только с такими индексами.
                     var subCountry = driver
                             .findElement(By.cssSelector("tbody tr:nth-child("+(k+2)+") td:nth-child(3)"));
-                    subCountries[k] = subCountry.getAttribute("textContent");
+                    subCountries.add(subCountry.getAttribute("textContent"));
+                    subCountriesReal.add(subCountry.getAttribute("textContent"));
                 }
-                String[] sortSubCountries = subCountries;
-                Arrays.sort(sortSubCountries);
-                if (subCountries!=sortSubCountries){
+
+                if (!subCountries.stream().sorted().toList().equals(subCountriesReal)){
                     throw new NoSuchElementException("Rows aren't sorted!");
                 }
                 driver.navigate().back();
