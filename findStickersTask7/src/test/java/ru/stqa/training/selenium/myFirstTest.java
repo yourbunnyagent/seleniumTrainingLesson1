@@ -30,7 +30,7 @@ public class myFirstTest {
     public void myFirstTest() {
         driver.get("http://localhost:8080/litecart/");
         wait.until(titleIs("Online Store | My Store"));
-        driver.findElements(By.cssSelector(".product.column.shadow.hover-light")).forEach(el -> {
+        driver.findElements(By.cssSelector(".product")).forEach(el -> {
             var elems = el.findElements(By.className("sticker"));
             if(elems.size() != 1) {
                 throw new NoSuchElementException("count of stickers !=1");
