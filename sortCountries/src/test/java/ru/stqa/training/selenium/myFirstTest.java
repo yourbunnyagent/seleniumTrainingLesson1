@@ -52,9 +52,9 @@ public class myFirstTest {
         for (int i = 0; i <= n-1; i++) { //нет, ошибок нет. При выборе дочерних элементов в следующем цикле (:nth-child())
                                         //получается нормально сформировать массив только с такими индексами.
             var country = driver
-                    .findElement(By.cssSelector(".row:nth-child(" +(i+2)+ ") td:nth-child(5)"));
-            countries.add(country.getAttribute("textContent"));
-            countriesReal.add(country.getAttribute("textContent"));
+                    .findElement(By.cssSelector(".row:nth-child(" +(i+2)+ ") td:nth-child(5)")).getAttribute("textContent");
+            countries.add(country);
+            countriesReal.add(country);
             //System.out.println(country.getAttribute("textContent"));
         }
             if (!countries.stream().sorted().toList().equals(countriesReal)){
@@ -84,9 +84,9 @@ public class myFirstTest {
                 for (int k = 0; k <= sCCount-1; k++) { //нет, ошибок нет. При выборе дочерних элементов в следующем цикле (:nth-child())
                     //получается нормально сформировать массив только с такими индексами.
                     var subCountry = driver
-                            .findElement(By.cssSelector("tbody tr:nth-child("+(k+2)+") td:nth-child(3)"));
-                    subCountries.add(subCountry.getAttribute("textContent"));
-                    subCountriesReal.add(subCountry.getAttribute("textContent"));
+                            .findElement(By.cssSelector("tbody tr:nth-child("+(k+2)+") td:nth-child(3)")).getAttribute("textContent");
+                    subCountries.add(subCountry);
+                    subCountriesReal.add(subCountry);
                 }
 
                 if (!subCountries.stream().sorted().toList().equals(subCountriesReal)){
