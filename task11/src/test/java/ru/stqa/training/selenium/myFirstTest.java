@@ -57,7 +57,7 @@ public class myFirstTest {
         String pass = (int) (Math.random()*10000)+"passWord!";
         driver.findElement(By.cssSelector("input[name=password]")).sendKeys(pass);
         driver.findElement(By.cssSelector("input[name=confirmed_password]")).sendKeys(pass);
-        driver.findElement(By.cssSelector("button[name=create_account]")).click();
+        driver.findElement(By.name("create_account")).click();
         wait.until(titleIs("Online Store | My Store"));
 
         driver.findElement(By.cssSelector("#box-account li:nth-child(4) a")).click();
@@ -65,8 +65,11 @@ public class myFirstTest {
 
         driver.findElement(By.cssSelector("[name=email]")).sendKeys(eMail);
         driver.findElement(By.cssSelector("[name=password]")).sendKeys(pass);
+        driver.findElement(By.name("login")).click();
+
         wait.until(titleIs("Online Store | My Store"));
         driver.findElement(By.cssSelector("#box-account li:nth-child(4) a")).click();
+
 
     }
 
