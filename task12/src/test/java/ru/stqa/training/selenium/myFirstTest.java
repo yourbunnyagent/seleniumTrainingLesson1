@@ -87,7 +87,7 @@ public class myFirstTest {
         int count2 = driver.findElements(By.cssSelector(".dataTable tr")).size();
 
         if (count2 <= count) {
-            throw new RuntimeException("Новый продукт не добавился");
+            throw new RuntimeException("Новый продукт не добавился"); // Проверил сто раз. Условие верное. Не понимаю, почему иногда ошибку ловит.
             }
 
 
