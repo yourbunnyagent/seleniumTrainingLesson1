@@ -10,8 +10,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfElementsToBe;
 
 
 public class myFirstTest {
@@ -42,12 +44,22 @@ public class myFirstTest {
             String winHandleBefore = driver.getWindowHandle();
 
             for (int i=0; i<links.size(); i++){
+
                 links.get(i).click();
-                for(String winHandle : driver.getWindowHandles()){
-                    driver.switchTo().window(winHandle);
+
+                ArrayList<String> windows = new ArrayList (driver.getWindowHandles());
+
+
+                if (winHandleBefore == windows.get(0)){
+                    driver.switchTo().window(windows.get(1));
+                    driver.close();
+                    driver.switchTo().window(windows.get(0));
+                } else{
+                    driver.switchTo().window(windows.get(0));
+                    driver.close();
+                    driver.switchTo().window(windows.get(1));
+
                 }
-                driver.close();
-                driver.switchTo().window(winHandleBefore);
         }
 
     }
