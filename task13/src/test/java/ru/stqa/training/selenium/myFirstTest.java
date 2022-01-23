@@ -48,9 +48,13 @@ public class myFirstTest {
 
 
         driver.findElement(By.cssSelector("#cart a.link")).click();
+        wait.until(presenceOfElementLocated(By.cssSelector(".shortcut a")));
+        int n = driver.findElements(By.cssSelector(".shortcut a")).size();
 
-        for(int j = 1; j < 4; j ++) {
+        for(int j = 1; j < n; j ++) {
+
             int del = driver.findElements(By.cssSelector(".dataTable tr")).size();
+
             WebElement last = driver.findElement(By.cssSelector(".dataTable tr:nth-child("+del+")"));
             driver.findElement(By.name("remove_cart_item")).click();
             wait.until(ExpectedConditions.stalenessOf(last));
